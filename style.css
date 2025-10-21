@@ -1,0 +1,95 @@
+body {
+  background: linear-gradient(50deg, #f393e5, #f7cbf0);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.izquierda {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.derecha {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+header a {
+  text-decoration: none;
+  color: #003366;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+header a:hover {
+  color: #ff69b4;
+}
+
+.logo {
+  width: 200px;
+  height: auto;
+}
+
+.dolar {
+  color: #00cc66;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.saldo {
+  background: linear-gradient(135deg, #007bff, #ff4db8);
+  color: white;
+  border: none;
+  border-radius: 35px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 0, 150, 0.3);
+  transition: all 0.3s ease;
+}
+
+.saldo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+  background: linear-gradient(135deg, #0062cc, #ff2da5);
+}
+
+.saldo:active {
+  transform: scale(0.95);
+}
+
+.derecha button:last-of-type {
+  background: linear-gradient(135deg, #ff66cc, #3399ff);
+  color: white;
+  border: none;
+  border-radius: 35px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.derecha button:last-of-type:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 102, 204, 0.4);
+  background: linear-gradient(135deg, #ff2db5, #007bff);
+}
+
+.derecha button:last-of-type:active {
+  transform: scale(0.95);
+}
