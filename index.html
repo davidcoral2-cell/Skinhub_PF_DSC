@@ -1,27 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="style.css">
-    <title>SkinHub</title>
+  <meta charset="utf-8">
+  <title>SkinHub</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
-    <header>
-    <div class="izquierda">
-        <a href="index.html"><img src="./img/logo.png" alt="logo" class="logo"></a>
-        <a href="">| Cajas gratis</a>
-        <a href="">| Cajas de pago</a>
-        <a href="">| Actualizar |</a>
+<body>
+<header>
+  <div class="izquierda">
+    <a href="index.html"><img src="./img/logo.png" alt="logo" class="logo"></a>
+    <p>
+      <a href="#gratis">| Cajas gratis</a>
+      <a href="#pago">| Cajas de pago</a>
+      <a href="">| Actualizar |</a>
+    </p>
+  </div>
+  <div class="derecha">
+    <button class="saldo"><span class="dolar">$</span>0.00</button>
+    <a href="./views/login.html"><button id="btnLogin">Inicio de sesión</button></a>
+  </div>
+</header>
+<main>
+  <!-- Cajas Gratis -->
+  <section>
+    <article class="articlegratis">
+      <h1 class="titulo" id="gratis">Cajas Gratis</h1>
+      <hr>
+    </article>
+    <div class="ordencajas">
+      <div id="cajagratis" class="box" data-caja="cuba">
+        <img src="./img/caja_gratis.png" alt="Caja gratuita">
+        <p>Caja Cuba</p>
+      </div>
+      <div id="cajagratis2" class="box" data-caja="gods">
+        <img src="./img/caja_gratis.png" alt="Caja gratuita">
+        <p>God's crate</p>
+      </div>
+      <div id="cajagratis3" class="box" data-caja="ugreen">
+        <img src="./img/caja_gratis.png" alt="Caja gratuita">
+        <p>Ugreen</p>
+      </div>
+      <div id="cajagratis4" class="box" data-caja="lady">
+        <img src="./img/caja_gratis.png" alt="Caja gratuita">
+        <p>Lady Luck</p>
+      </div>
     </div>
+  </section>
 
-    <div class="derecha">
-        <button class="saldo"><span class="dolar">$</span> Saldo</button>
-        <button>Inicio de sesión</button>
+  <!-- Cajas de Pago -->
+  <section>
+    <article>
+      <h1 class="titulo" id="pago">Cajas de Pago</h1>
+      <hr>
+    </article>
+    <div class="ordencajas">
+      <div id="cajapago1" class="box" data-caja="pago1">
+        <img src="./img/caja_pago.png" alt="Caja de pago">
+        <p>Caja Fantastic</p>
+      </div>
+      <div id="cajapago2" class="box" data-caja="pago2">
+        <img src="./img/caja_pago.png" alt="Caja de pago">
+        <p>Bombonera</p>
+      </div>
+      <div id="cajapago3" class="box" data-caja="pago3">
+        <img src="./img/caja_pago.png" alt="Caja de pago">
+        <p>Caja McTracie</p>
+      </div>
+      <div id="cajapago4" class="box" data-caja="pago4">
+        <img src="./img/caja_pago.png" alt="Caja de pago">
+        <p>Who's Crazy</p>
+      </div>
     </div>
-    </header>
-    <main>
-        <h1 class="titulocajas" id="gratis">Cajas Gratis</h1>
-    </main>
-    <footer>
+  </section>
+</main>
 
-    </footer>
+<!-- Popup ruleta -->
+<div id="popupRuleta" style="display:none;">
+  <div id="ruletaContainer">
+    <div id="ruletaBar"></div>
+    <div id="indicador"></div>
+  </div>
+  <button id="btnGirar">GIRAR</button>
+  <span id="closeRuleta" class="close">&times;</span>
+</div>
+
+<!-- auth.js -->
+<script type="module" src="./js/auth.js"></script>
+<script type="module" src="./js/script.js"></script>
+</body>
 </html>

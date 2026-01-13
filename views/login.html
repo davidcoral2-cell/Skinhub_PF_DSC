@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciar Sesión - SkinHub</title>
+  <link rel="stylesheet" href="../assets/css/login.css">
+</head>
+<body>
+<header>
+  <div class="izquierda">
+    <a href="../index.html"><img src="../img/logo.png" alt="logo" class="logo"></a>
+  </div>
+</header>
+<main>
+  <div class="login-container">
+    <div class="login-box">
+      <h1>Iniciar Sesión</h1>
+      <form id="loginForm">
+        <input type="email" id="email" placeholder="Correo electrónico" required>
+        <input type="password" id="password" placeholder="Contraseña" required>
+        <button type="submit">Iniciar sesión</button>
+      </form>
+      <p>¿No tienes cuenta? <a href="register.html">Crear cuenta</a></p>
+    </div>
+  </div>
+</main>
+
+<script type="module">
+  import { auth } from "../js/firebase.js";
+  import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
+  const loginForm = document.getElementById('loginForm');
+  loginForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth,email,password);
+      alert("Sesión iniciada correctamente.");
+      window.location.href = "../index.html";
+    } catch(err){
+      console.error(err);
+      alert("Error al iniciar sesión: " + err.message);
+    }
+  });
+</script>
+
+<!-- Añadido: auth.js para que el header gestione el botón de login/saldo -->
+<script type="module" src="../js/auth.js"></script>
+</body>
+</html>

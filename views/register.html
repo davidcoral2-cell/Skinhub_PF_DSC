@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear Cuenta - SkinHub</title>
+  <link rel="stylesheet" href="../assets/css/login.css">
+</head>
+<body>
+<header>
+  <div class="izquierda">
+    <a href="../index.html"><img src="../img/logo.png" alt="logo" class="logo"></a>
+  </div>
+</header>
+<main>
+  <div class="login-container">
+    <div class="login-box">
+      <h1>Crear Cuenta</h1>
+      <form id="registerForm">
+        <input type="email" id="email" placeholder="Correo electrónico" required>
+        <input type="password" id="password" placeholder="Contraseña" required>
+        <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
+        <button type="submit">Registrarse</button>
+      </form>
+      <p>¿Ya tienes cuenta? <a href="login.html">Iniciar sesión</a></p>
+    </div>
+  </div>
+</main>
+
+<script type="module">
+  import { auth, db } from "../js/firebase.js";
+  import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+  import { doc, setDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+  const registerForm = document.getElementById("registerForm");
+  registerForm.addEventListener("submit", async e=>{
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    if(password!==confirmPassword){
+      alert("Las contraseñas no coinciden.");
+      return;
+    }
+    try{
+      const userCredential = await createUserWithEmailAndPassword(auth,email,password);
+      const user = userCredential.user;
+      // Creamos doc en users con saldo inicial 0
+      await setDoc(doc(db,"users",user.uid),{ email, saldo: 0 });
+      alert("Cuenta creada correctamente.");
+      window.location.href = "login.html";
+    }catch(err){
+      console.error(err);
+      alert("Error al crear la cuenta: " + err.message);
+    }
+  });
+</script>
+
+<!-- Añadido: auth.js para que el header gestione el botón de login/saldo -->
+<script type="module" src="../js/auth.js"></script>
+</body>
+</html>
