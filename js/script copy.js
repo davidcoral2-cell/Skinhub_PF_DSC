@@ -110,7 +110,7 @@ function generarRuletaConGanadora(skinGanadora) {
   ruletaBar.innerHTML = "";
   const tipos = ["comun", "rara", "epica", "legendaria"];
   
-  // Generar items aleatorios ANTES de la ganadora
+  // Generar items aleatorios
   for (let i = 0; i < 20; i++) {
     tipos.forEach(tipo => {
       const div = document.createElement("div");
@@ -132,11 +132,10 @@ function generarRuletaConGanadora(skinGanadora) {
     });
   }
   
-  // Agregar la skin ganadora 
+  // Agregar la skin ganadora al final para asegurar que el giro termine en ella
   const divGanadora = document.createElement("div");
   divGanadora.className = "item";
   divGanadora.dataset.tipo = skinGanadora.id.replace(/[0-9]/g, ''); // Extraer tipo de rara3 -> rara
-  divGanadora.dataset.ganadora = "true"; // Marcar como ganadora
   
   const imgGanadora = document.createElement("img");
   imgGanadora.src = skinGanadora.src;
@@ -144,36 +143,10 @@ function generarRuletaConGanadora(skinGanadora) {
   imgGanadora.style.height = "140px";
   imgGanadora.style.objectFit = "contain";
   imgGanadora.dataset.skinId = skinGanadora.id;
+  imgGanadora.dataset.ganadora = "true";
   
   divGanadora.appendChild(imgGanadora);
   ruletaBar.appendChild(divGanadora);
-  
-  // Guardar el índice de la ganadora ANTES de agregar items extras
-  const indexGanadorGuardado = ruletaBar.children.length - 1;
-  window.indexGanadorGuardado = indexGanadorGuardado;
-  
-  // Agregar items DESPUÉS para rellenar el espacio blanco (sin afectar el cálculo)
-  const tipos2 = ["comun", "rara", "epica", "legendaria"];
-  for (let i = 0; i < 2; i++) {
-    tipos2.forEach(tipo => {
-      const div = document.createElement("div");
-      div.className = "item";
-      div.dataset.tipo = tipo;
-
-      const skinsTipo = skins[tipo];
-      const skinSeleccionada = skinsTipo[Math.floor(Math.random() * skinsTipo.length)];
-      
-      const img = document.createElement("img");
-      img.src = skinSeleccionada.src;
-      img.style.width = "140px";
-      img.style.height = "140px";
-      img.style.objectFit = "contain";
-      img.dataset.skinId = skinSeleccionada.id;
-
-      div.appendChild(img);
-      ruletaBar.appendChild(div);
-    });
-  }
 }
 
 // Generar ruleta inicial sin ganadora especificada
@@ -311,8 +284,8 @@ if (btnGirar) {
     // Esperar a que se renderice para obtener el ancho correcto
     setTimeout(() => {
       const items = [...ruletaBar.children];
-      // Usar el índice guardado de la ganadora (no el último)
-      const indexGanador = window.indexGanadorGuardado;
+      // Buscar el último item (que es la skin ganadora que acabamos de agregar)
+      const indexGanador = items.length - 1;
 
       const itemWidth = items[0].offsetWidth + 20; // incluir margen
       const containerWidth = ruletaContainer.offsetWidth;
