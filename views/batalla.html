@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Batalla de Cajas - SkinHub</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/batalla.css">
+</head>
+<body>
+<header>
+  <div class="izquierda">
+    <a href="../index.html"><img src="../img/logo.png" alt="logo" class="logo"></a>
+    <p>
+      <a href="../index.html">| Página principal |</a>
+    </p>
+  </div>
+  <div class="derecha">
+    <button class="saldo"><span class="dolar">$</span>0.00</button>
+    <a href="./login.html"><button id="btnLogin">Inicio de sesión</button></a>
+  </div>
+</header>
+
+<main class="main-batalla">
+  <!-- SECCIÓN: Crear Batalla -->
+  <div id="seccionCreacion" class="seccion-batalla">
+    <div class="batalla-container">
+      <h1>⚔️ BATALLA DE CAJAS</h1>
+      
+      <div class="batalla-grid">
+        <!-- Panel izquierdo: Seleccionar cajas -->
+        <div class="panel-izquierdo">
+          <h2>Selecciona tus cajas</h2>
+          
+          <div class="cajas-pago-selector">
+            <div class="caja-opcion" data-caja="pago1">
+              <img src="../img/caja_pago4.png" alt="Caja Fantastic">
+              <div class="caja-info">
+                <h3>Caja Fantastic</h3>
+                <p class="precio">2.30 €</p>
+              </div>
+            </div>
+            
+            <div class="caja-opcion" data-caja="pago2">
+              <img src="../img/caja_pago.png" alt="Bombonera">
+              <div class="caja-info">
+                <h3>Bombonera</h3>
+                <p class="precio">2.93 €</p>
+              </div>
+            </div>
+            
+            <div class="caja-opcion" data-caja="pago3">
+              <img src="../img/Caja_pago3.png" alt="Caja McTracie">
+              <div class="caja-info">
+                <h3>Caja McTracie</h3>
+                <p class="precio">3.28 €</p>
+              </div>
+            </div>
+            
+            <div class="caja-opcion" data-caja="pago4">
+              <img src="../img/caja_pago2.png" alt="Who's Crazy">
+              <div class="caja-info">
+                <h3>Who's Crazy</h3>
+                <p class="precio">4.13 €</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="cantidad-selector">
+            <label for="cantidadInput">Cantidad:</label>
+            <input type="number" id="cantidadInput" min="1" max="10" value="1">
+          </div>
+          
+          <button id="btnAgregarCaja" class="btn-agregar">+ Agregar a la batalla</button>
+          
+          <!-- Resumen de cajas agregadas -->
+          <div class="resumen-cajas">
+            <h3>Cajas Agregadas</h3>
+            <div id="listaCajasAgregadas" class="lista-cajas"></div>
+            <div class="resumen-total">
+              <span>Costo total:</span>
+              <span id="costoTotal">0.00 €</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Panel derecho: Crear batalla -->
+        <div class="panel-derecho">
+          <div class="info-batalla">
+            <h2>Crear Batalla</h2>
+            
+            <div class="detalles-batalla">
+              <div class="detalle-item">
+                <span>Cajas a abrir:</span>
+                <span id="cajasTotal">0</span>
+              </div>
+              <div class="detalle-item">
+                <span>Costo de batalla:</span>
+                <span id="costoTotal2" class="costo-highlight">0.00 €</span>
+              </div>
+              <div class="detalle-item info-saldo">
+                <span>Tu saldo:</span>
+                <span id="saldoDisponible">0.00 €</span>
+              </div>
+            </div>
+            
+            <button id="btnCrearBatalla" class="btn-crear-batalla">
+              CREAR BATALLA DE CAJAS
+            </button>
+            
+            <p class="advertencia">⚠️ Al crear la batalla, se descontarán inmediatamente los fondos de tu cuenta.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- SECCIÓN: Batalla en Progreso -->
+  <div id="seccionBatalla" class="seccion-batalla" style="display: none;">
+    <div class="batalla-container">
+      <div class="batalla-header">
+        <h1>⚔️ BATALLA EN CURSO</h1>
+        <div class="progreso-info">
+          <span id="rondaActual">Ronda 1 de 5</span>
+        </div>
+      </div>
+      
+      <!-- Slider de cajas -->
+      <div class="cajas-slider-container">
+        <div id="cajasSlider" class="cajas-slider">
+          <!-- Se llenarán dinámicamente con las cajas -->
+        </div>
+      </div>
+      
+      <div class="batalla-progreso">
+        <div id="barraProgreso" class="barra-progreso"></div>
+      </div>
+      
+      <div class="batalla-players">
+        <div class="player-box usuario">
+          <div class="player-header">
+            <span class="badge">👤 TÚ</span>
+            <span id="totalUsuario" class="total">0.00 €</span>
+          </div>
+          <div class="skin-abierta">
+            <div class="ruleta-vertical-contenedor">
+              <div id="ruletaUserSkins" class="ruleta-vertical">
+                <!-- Se llenarán dinámicamente con skins -->
+              </div>
+            </div>
+            <div class="skin-info">
+              <img id="userSkinImg" class="skin-resultado-img" src="" alt="" style="display: none;">
+              <div id="userSkinValor" class="skin-valor">0.00 €</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="vs">VS</div>
+        
+        <div class="player-box bot">
+          <div class="player-header">
+            <span class="badge">🤖 BOT</span>
+            <span id="totalBot" class="total">0.00 €</span>
+          </div>
+          <div class="skin-abierta">
+            <div class="ruleta-vertical-contenedor">
+              <div id="ruletaBotSkins" class="ruleta-vertical">
+                <!-- Se llenarán dinámicamente con skins -->
+              </div>
+            </div>
+            <div class="skin-info">
+              <img id="botSkinImg" class="skin-resultado-img" src="" alt="" style="display: none;">
+              <div id="botSkinValor" class="skin-valor">0.00 €</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="batalla-acciones">
+        <button id="btnSiguienteCaja" class="btn-siguiente">Siguiente caja</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- SECCIÓN: Resultado -->
+  <div id="seccionResultado" class="seccion-batalla" style="display: none;">
+    <div class="batalla-container resultado-container">
+      <div id="resultadoContenido"></div>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="../js/auth.js"></script>
+<script type="module" src="../js/script.js"></script>
+<script type="module" src="../js/batalla.js"></script>
+</body>
+</html>

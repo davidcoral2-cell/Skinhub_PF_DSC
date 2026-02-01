@@ -29,6 +29,9 @@
   import { auth } from "../js/firebase.js";
   import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
+  // Guardar la página anterior para volver después de login
+  const refererPage = sessionStorage.getItem('refererPage') || '../index.html';
+
   const loginForm = document.getElementById('loginForm');
   loginForm.addEventListener('submit', async e => {
     e.preventDefault();
@@ -37,7 +40,8 @@
     try {
       const userCredential = await signInWithEmailAndPassword(auth,email,password);
       alert("Sesión iniciada correctamente.");
-      window.location.href = "../index.html";
+      // Volver a la página anterior o index.html si no hay referer
+      window.location.href = refererPage;
     } catch(err){
       console.error(err);
       alert("Error al iniciar sesión: " + err.message);

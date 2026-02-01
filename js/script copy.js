@@ -51,32 +51,32 @@ function calcularProbabilidadesSkins(probTipos) {
 // Imagenes de skins por tipo (5 cada tipo) - Variables individuales
 const skins = {
   comun: [
-    { id: "comun1", src: "./img/comun1.png", valor: 0.07 },
-    { id: "comun2", src: "./img/comun2.png", valor: 0.09 },
-    { id: "comun3", src: "./img/comun3.png", valor: 0.03 },
-    { id: "comun4", src: "./img/comun4.png", valor: 0.11 },
-    { id: "comun5", src: "./img/comun5.png", valor: 0.12 }
+    { id: "comun1", src: "./img/comun1.png", valor: 0.07, nombre: "MAC-10 | Sakkaku" },
+    { id: "comun2", src: "./img/comun2.png", valor: 0.09, nombre: "Sticker | Peek-a-Boo" },
+    { id: "comun3", src: "./img/comun3.png", valor: 0.03, nombre: "M4A1-S | Welcome to the Jungle" },
+    { id: "comun4", src: "./img/comun4.png", valor: 0.11, nombre: "Zeus x27 | Olympus" },
+    { id: "comun5", src: "./img/comun5.png", valor: 0.12, nombre: "MP9 | Buff Blue" }
   ],
   rara: [
-    { id: "rara1", src: "./img/rara1.png", valor: 0.33 },
-    { id: "rara2", src: "./img/rara2.png", valor: 0.47 },
-    { id: "rara3", src: "./img/rara3.png", valor: 0.52 },
-    { id: "rara4", src: "./img/rara4.png", valor: 0.61 },
-    { id: "rara5", src: "./img/rara5.png", valor: 0.62 }
+    { id: "rara1", src: "./img/rara1.png", valor: 0.33, nombre: "AK-47 | Neon Rider" },
+    { id: "rara2", src: "./img/rara2.png", valor: 0.47, nombre: "AWP | Pit Viper" },
+    { id: "rara3", src: "./img/rara3.png", valor: 0.52, nombre: "AK-47 | Ice Coaled" },
+    { id: "rara4", src: "./img/rara4.png", valor: 0.61, nombre: "M4A1-S | Vaporwave" },
+    { id: "rara5", src: "./img/rara5.png", valor: 0.62, nombre: "Glock-18 | Shinobu" }
   ],
   epica: [
-    { id: "epica1", src: "./img/epica1.png", valor: 1.85 },
-    { id: "epica2", src: "./img/epica2.png", valor: 1.94 },
-    { id: "epica3", src: "./img/epica3.png", valor: 2.03 },
-    { id: "epica4", src: "./img/epica4.png", valor: 2.10 },
-    { id: "epica5", src: "./img/epica5.png", valor: 2.21 }
+    { id: "epica1", src: "./img/epica1.png", valor: 1.85, nombre: "Deser Eagle | Printstream" },
+    { id: "epica2", src: "./img/epica2.png", valor: 1.94, nombre: "AK-47 | Asiimov" },
+    { id: "epica3", src: "./img/epica3.png", valor: 2.03, nombre: "Deser Eagle | Tilted" },
+    { id: "epica4", src: "./img/epica4.png", valor: 2.10, nombre: "USP-S | The Traitor" },
+    { id: "epica5", src: "./img/epica5.png", valor: 2.21, nombre: "Shadow Daggers | Lore" }
   ],
   legendaria: [
-    { id: "legendaria1", src: "./img/legendaria1.png", valor: 13.97 },
-    { id: "legendaria2", src: "./img/legendaria2.png", valor: 14.71 },
-    { id: "legendaria3", src: "./img/legendaria3.png", valor: 15.66 },
-    { id: "legendaria4", src: "./img/legendaria4.png", valor: 18.95 },
-    { id: "legendaria5", src: "./img/legendaria5.png", valor: 21.13 }
+    { id: "legendaria1", src: "./img/legendaria1.png", valor: 13.97, nombre: "M4A4 | Howl" },
+    { id: "legendaria2", src: "./img/legendaria2.png", valor: 14.71, nombre: "AWP | Dragon Lore" },
+    { id: "legendaria3", src: "./img/legendaria3.png", valor: 15.66, nombre: "Karambit | Gamma Doppler Emerald" },
+    { id: "legendaria4", src: "./img/legendaria4.png", valor: 18.95, nombre: "Butterfly Knife | Doppler Ruby" },
+    { id: "legendaria5", src: "./img/legendaria5.png", valor: 21.13, nombre: "AK-47 | Wild Lotus" }
   ]
 };
 
@@ -110,7 +110,7 @@ function generarRuletaConGanadora(skinGanadora) {
   ruletaBar.innerHTML = "";
   const tipos = ["comun", "rara", "epica", "legendaria"];
   
-  // Generar items aleatorios
+  // Generar items aleatorios ANTES de la ganadora
   for (let i = 0; i < 20; i++) {
     tipos.forEach(tipo => {
       const div = document.createElement("div");
@@ -119,6 +119,7 @@ function generarRuletaConGanadora(skinGanadora) {
 
       const skinsTipo = skins[tipo];
       const skinSeleccionada = skinsTipo[Math.floor(Math.random() * skinsTipo.length)];
+      asignarClaseRareza(div, tipo, skinSeleccionada.id);
       
       const img = document.createElement("img");
       img.src = skinSeleccionada.src;
@@ -132,10 +133,13 @@ function generarRuletaConGanadora(skinGanadora) {
     });
   }
   
-  // Agregar la skin ganadora al final para asegurar que el giro termine en ella
+  // Agregar la skin ganadora 
   const divGanadora = document.createElement("div");
   divGanadora.className = "item";
-  divGanadora.dataset.tipo = skinGanadora.id.replace(/[0-9]/g, ''); // Extraer tipo de rara3 -> rara
+  const tipoGanadora = skinGanadora.id.replace(/[0-9]/g, ''); // Extraer tipo de rara3 -> rara
+  divGanadora.dataset.tipo = tipoGanadora;
+  divGanadora.dataset.ganadora = "true"; // Marcar como ganadora
+  asignarClaseRareza(divGanadora, tipoGanadora, skinGanadora.id);
   
   const imgGanadora = document.createElement("img");
   imgGanadora.src = skinGanadora.src;
@@ -143,10 +147,52 @@ function generarRuletaConGanadora(skinGanadora) {
   imgGanadora.style.height = "140px";
   imgGanadora.style.objectFit = "contain";
   imgGanadora.dataset.skinId = skinGanadora.id;
-  imgGanadora.dataset.ganadora = "true";
   
   divGanadora.appendChild(imgGanadora);
   ruletaBar.appendChild(divGanadora);
+  
+  // Guardar el índice de la ganadora ANTES de agregar items extras
+  const indexGanadorGuardado = ruletaBar.children.length - 1;
+  window.indexGanadorGuardado = indexGanadorGuardado;
+  
+  // Agregar items DESPUÉS para rellenar el espacio blanco (sin afectar el cálculo)
+  const tipos2 = ["comun", "rara", "epica", "legendaria"];
+  for (let i = 0; i < 2; i++) {
+    tipos2.forEach(tipo => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.dataset.tipo = tipo;
+
+      const skinsTipo = skins[tipo];
+      const skinSeleccionada = skinsTipo[Math.floor(Math.random() * skinsTipo.length)];
+      asignarClaseRareza(div, tipo, skinSeleccionada.id);
+      
+      const img = document.createElement("img");
+      img.src = skinSeleccionada.src;
+      img.style.width = "140px";
+      img.style.height = "140px";
+      img.style.objectFit = "contain";
+      img.dataset.skinId = skinSeleccionada.id;
+
+      div.appendChild(img);
+      ruletaBar.appendChild(div);
+    });
+  }
+}
+
+// Función auxiliar para asignar clase de rareza según el tipo y nombre de skin
+function asignarClaseRareza(element, tipo, skinId) {
+  if (tipo === "legendaria") {
+    // legendaria4 y legendaria5 son doradas, el resto son rojas
+    if (skinId === "legendaria4" || skinId === "legendaria5") {
+      element.classList.add("legendaria-dorada");
+    } else if (skinId === "legendaria1" || skinId === "legendaria2" || skinId === "legendaria3") {
+      element.classList.add("legendaria-roja");
+    } else if (skinId === "") {
+      // Si no tiene ID especificado (items aleatorios), usar roja por defecto
+      element.classList.add("legendaria-roja");
+    }
+  }
 }
 
 // Generar ruleta inicial sin ganadora especificada
@@ -162,6 +208,7 @@ function generarRuleta() {
 
       const skinsTipo = skins[tipo];
       const skinSeleccionada = skinsTipo[Math.floor(Math.random() * skinsTipo.length)];
+      asignarClaseRareza(div, tipo, skinSeleccionada.id);
       
       const img = document.createElement("img");
       img.src = skinSeleccionada.src;
@@ -284,8 +331,8 @@ if (btnGirar) {
     // Esperar a que se renderice para obtener el ancho correcto
     setTimeout(() => {
       const items = [...ruletaBar.children];
-      // Buscar el último item (que es la skin ganadora que acabamos de agregar)
-      const indexGanador = items.length - 1;
+      // Usar el índice guardado de la ganadora (no el último)
+      const indexGanador = window.indexGanadorGuardado;
 
       const itemWidth = items[0].offsetWidth + 20; // incluir margen
       const containerWidth = ruletaContainer.offsetWidth;
@@ -317,36 +364,80 @@ function mostrarResultado() {
   modal.style.left = "0";
   modal.style.width = "100%";
   modal.style.height = "100%";
-  modal.style.background = "rgba(0,0,0,0.7)";
+  modal.style.background = "rgba(0,0,0,0.8)";
   modal.style.display = "flex";
   modal.style.justifyContent = "center";
   modal.style.alignItems = "center";
   modal.style.zIndex = "3000";
+  modal.style.backdropFilter = "blur(5px)";
 
   const caja = document.createElement("div");
-  caja.style.background = "white";
-  caja.style.padding = "30px";
-  caja.style.borderRadius = "15px";
+  caja.style.background = "linear-gradient(180deg, #ffffff, #f8f9fa)";
+  caja.style.padding = "40px 50px";
+  caja.style.borderRadius = "20px";
   caja.style.textAlign = "center";
+  caja.style.maxWidth = "500px";
+  caja.style.boxShadow = "0 20px 60px rgba(0,0,0,0.3)";
+  caja.style.border = "2px solid rgba(255,255,255,0.9)";
 
   const texto = document.createElement("h2");
   texto.textContent = `Has conseguido una skin ${skinGanada.toUpperCase()}!`;
+  texto.style.margin = "0 0 8px 0";
+  texto.style.color = "#333";
+  texto.style.fontSize = "1.8rem";
+  texto.style.fontWeight = "700";
+
+  const nombreSkin = document.createElement("h3");
+  nombreSkin.textContent = skinSeleccionadaObj.nombre;
+  nombreSkin.style.margin = "0 0 30px 0";
+  nombreSkin.style.color = "#888";
+  nombreSkin.style.fontWeight = "600";
+  nombreSkin.style.fontSize = "1.3rem";
+
+  const imgContainer = document.createElement("div");
+  imgContainer.style.width = "100%";
+  imgContainer.style.height = "280px";
+  imgContainer.style.display = "flex";
+  imgContainer.style.justifyContent = "center";
+  imgContainer.style.alignItems = "center";
+  imgContainer.style.margin = "25px 0 35px 0";
+  imgContainer.style.background = "linear-gradient(135deg, #f0f0f0, #e8e8e8)";
+  imgContainer.style.borderRadius = "15px";
+  imgContainer.style.padding = "15px";
 
   const img = document.createElement("img");
   img.src = skinSeleccionadaObj.src;
-  img.style.width = "120px";
-  img.style.margin = "15px 0";
+  img.style.maxWidth = "100%";
+  img.style.maxHeight = "100%";
+  img.style.objectFit = "contain";
+
+  imgContainer.appendChild(img);
 
   const btnVender = document.createElement("button");
   btnVender.type = "button";
-  btnVender.textContent = `Vender por ${valor.toFixed(2)} €`;
-  btnVender.style.padding = "10px 25px";
+  btnVender.textContent = `✓ Vender por ${valor.toFixed(2)} €`;
+  btnVender.style.padding = "14px 45px";
   btnVender.style.border = "none";
-  btnVender.style.borderRadius = "10px";
-  btnVender.style.background = "linear-gradient(135deg,#007bff,#ff4db8)";
+  btnVender.style.borderRadius = "12px";
+  btnVender.style.background = "linear-gradient(135deg, #ff6b9d, #c44569)";
   btnVender.style.color = "white";
   btnVender.style.fontWeight = "bold";
+  btnVender.style.fontSize = "1.1rem";
   btnVender.style.cursor = "pointer";
+  btnVender.style.boxShadow = "0 8px 25px rgba(255, 107, 157, 0.3)";
+  btnVender.style.transition = "all 0.3s ease";
+  btnVender.style.width = "100%";
+  btnVender.style.marginTop = "10px";
+
+  btnVender.onmouseover = () => {
+    btnVender.style.transform = "translateY(-3px)";
+    btnVender.style.boxShadow = "0 12px 35px rgba(255, 107, 157, 0.4)";
+  };
+
+  btnVender.onmouseout = () => {
+    btnVender.style.transform = "translateY(0)";
+    btnVender.style.boxShadow = "0 8px 25px rgba(255, 107, 157, 0.3)";
+  };
 
   btnVender.onclick = async (e) => {
     e.preventDefault();
@@ -387,7 +478,8 @@ function mostrarResultado() {
   };
 
   caja.appendChild(texto);
-  caja.appendChild(img);
+  caja.appendChild(nombreSkin);
+  caja.appendChild(imgContainer);
   caja.appendChild(btnVender);
   modal.appendChild(caja);
   document.body.appendChild(modal);

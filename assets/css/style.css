@@ -175,24 +175,27 @@ section h1{
     left:0;
     width:100%;
     height:100%;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.8);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    backdrop-filter: blur(5px);
 }
 
 #ruletaContainer {
     position: relative;
-    width: 700px;
-    height: 180px;
+    width: 750px;
+    height: 200px;
     overflow: hidden;
-    background: #fff;
-    border-radius: 20px;
+    background: linear-gradient(180deg, #9C8E97, #8a7a82);
+    border-radius: 25px;
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
 #ruletaBar {
@@ -200,60 +203,111 @@ section h1{
 }
 
 #ruletaBar .item {
-    min-width: 180px;
-    height: 160px;
+    min-width: 190px;
+    height: 180px;
     margin: 0 10px;
     background: linear-gradient(135deg,#a670a4,#d98fd5);
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 18px;
     font-weight: bold;
     color: #fff;
     font-size: 1rem;
     flex-shrink:0;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+#ruletaBar .item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Colores por rareza */
+#ruletaBar .item[data-tipo="comun"] {
+    background: linear-gradient(135deg, #6b6b6b, #a0a0a0);
+    box-shadow: 0 12px 30px rgba(107, 107, 107, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+#ruletaBar .item[data-tipo="rara"] {
+    background: linear-gradient(135deg, #003d99, #0066ff);
+    box-shadow: 0 12px 30px rgba(0, 102, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+#ruletaBar .item[data-tipo="epica"] {
+    background: linear-gradient(135deg, #6a1b9a, #b565d8);
+    box-shadow: 0 12px 30px rgba(106, 27, 154, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+#ruletaBar .item[data-tipo="legendaria"].legendaria-roja {
+    background: linear-gradient(135deg, #c62828, #ff5252);
+    box-shadow: 0 12px 30px rgba(255, 82, 82, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+#ruletaBar .item[data-tipo="legendaria"].legendaria-dorada {
+    background: linear-gradient(135deg, #ff8f00, #ffd54f);
+    box-shadow: 0 12px 30px rgba(255, 213, 79, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 #indicador {
     position: absolute;
-    top:0;
-    bottom:0;
+    top:-10px;
+    bottom:-10px;
     left:50%;
-    width:6px;
-    background: yellow;
+    width:10px;
+    background: linear-gradient(90deg, #ffeb3b, #fbc02d, #ffeb3b);
     transform: translateX(-50%);
+    box-shadow: 0 0 20px rgba(255, 235, 59, 0.9), inset 0 0 15px rgba(255, 235, 59, 0.7), 0 0 40px rgba(255, 235, 59, 0.5);
+    z-index: 100;
 }
 
 #btnGirar {
-    padding: 20px 50px;
-    border-radius: 25px;
+    padding: 20px 70px;
+    border-radius: 35px;
     border: none;
-    background: linear-gradient(135deg, #007bff, #ff4db8);
+    background: linear-gradient(135deg, #ff6b9d, #c44569);
     color: white;
     font-weight: bold;
     cursor: pointer;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 15px 40px rgba(255, 107, 157, 0.5);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 #btnGirar:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(255, 107, 157, 0.7);
+    background: linear-gradient(135deg, #ff85b0, #d65a7e);
+}
+
+#btnGirar:active {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 107, 157, 0.5);
 }
 
 #closeRuleta {
-    font-size: 40px;
+    font-size: 45px;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     color: #fff;
     cursor: pointer;
-    background: rgba(0,0,0,0.2);
-    padding: 10px 15px;
+    background: rgba(255, 107, 157, 0.3);
+    padding: 12px 18px;
     border-radius: 50%;
     z-index: 1001;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 20px rgba(255, 107, 157, 0.4);
+    transition: all 0.3s ease;
 }
 
 #closeRuleta:hover {
-    transform: scale(1.2);
+    transform: scale(1.15) rotate(90deg);
+    background: rgba(255, 107, 157, 0.6);
+    box-shadow: 0 0 30px rgba(255, 107, 157, 0.6);
 }
