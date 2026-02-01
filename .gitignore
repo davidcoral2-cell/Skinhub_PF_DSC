@@ -1,5 +1,5 @@
 # Archivos de configuración con credenciales
-js/config.js
+js/firebase.js
 
 # Dependencias
 node_modules/
